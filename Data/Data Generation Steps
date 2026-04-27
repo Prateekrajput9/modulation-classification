@@ -1,1 +1,112 @@
 
+
+
+```markdown id="data-gen-section"
+## 📡 Data Generation & Preprocessing
+
+The dataset used in this project is generated from raw SDR `.bin` files containing IQ samples for different modulation schemes.
+
+---
+
+### 📥 Step 1: Raw Data (.bin Files)
+
+- Each modulation type is stored as a separate `.bin` file  
+- Each file contains **800 samples**  
+- Each sample has **4096 values** representing IQ data  
+
+👉 Format of each sample:
+```
+
+I1, Q1, I2, Q2, I3, Q3, ..., I2048, Q2048
+
+```
+
+- Total: **2048 IQ pairs per sample**
+- Data is interleaved → **I first, then Q**
+
+---
+
+### 🔄 Step 2: Convert `.bin` → `.csv`
+
+Each `.bin` file is converted into a structured CSV file:
+
+- Rows → individual samples (800 per modulation)
+- Columns → 4096 IQ values
+
+This step ensures the raw binary SDR data becomes usable for ML pipelines.
+
+---
+
+### 🧩 Step 3: Add Labels
+
+After conversion:
+
+- Add **Modulation Label** column  
+- Add **SNR (dB)** column  
+
+Each sample is tagged with:
+- Modulation type (e.g., BPSK, QPSK, etc.)
+- SNR value
+
+---
+
+### 📊 Step 4: SNR Levels
+
+The dataset includes **4 SNR levels**:
+
+- -10 dB  
+- 0 dB  
+- 10 dB  
+- 20 dB  
+
+Each modulation has:
+- **200 samples per SNR level**
+- Total per modulation = **800 samples**
+
+---
+
+### 🔗 Step 5: Combine All Modulations
+
+All modulation-specific CSV files are merged into a **single dataset**.
+
+---
+
+### 📦 Final Dataset Structure
+
+- Total rows: **9600 samples**  
+- Total columns: **4098**
+
+| Feature Type | Count |
+|-------------|------|
+| IQ Values   | 4096 |
+| Label       | 1    |
+| SNR (dB)    | 1    |
+
+👉 Final row format:
+```
+
+[I1, Q1, I2, Q2, ..., I2048, Q2048, Modulation_Label, SNR_dB]
+
+```
+
+---
+
+### ✅ Key Highlights
+
+- Balanced dataset across **12 modulation classes**
+- Equal distribution across all **SNR levels**
+- Realistic SDR-based data (not synthetic)
+- Ready for deep learning pipelines
+
+---
+
+### ⚠️ Notes
+
+- IQ data is **interleaved**, so proper reshaping is required before STFT
+- Ensure correct parsing: even indices → I, odd indices → Q
+```
+
+
+
+
+Just say: **“give conversion code”** 🚀
