@@ -57,15 +57,15 @@ Raw IQ signals are difficult for CNNs to interpret directly.
 <img width="1039" height="615" alt="image" src="https://github.com/user-attachments/assets/61856c6b-f9c9-400f-b2fc-f2093cc42551" />
 
 GNU Radio + PlutoSDR
-↓
+->
 Raw IQ Data (4096 samples)
-↓
+->
 STFT Transformation
-↓
+->
 128×128 Spectrogram
-↓
+->
 CNN Model (WirelessID_CNN_12)
-↓
+->
 Predicted Modulation Class
 
 ---
